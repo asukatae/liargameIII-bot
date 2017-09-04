@@ -152,13 +152,14 @@ client.on('message', msg => {
 
 	  			if(numSmuggle==0){
 					client.channels.get('340390312847343616').send("Smuggler smuggled 0, while inspector doubts "+ numDoubt+ ". Smuggling success!");
-	  			}else{
-	  				if(smugglingSuccess(numSmuggle,numDoubt)){
-						client.channels.get('340390312847343616').send("Smuggler smuggled "+ numSmuggle+ " , which is more than doubt "+ numDoubt+ ". Smuggling success!");
-	  				}else{
-	  					client.channels.get('340390312847343616').send("Smuggler smuggled "+ numSmuggle+ ", which is less than or equal to doubt "+ numDoubt+ ". Smuggling failed!");
-	  				}
-	  			}  			
+	  			}else if (smugglingSuccess(numSmuggle,numDoubt)){
+                  console.log(numSmuggle+"&"+numDoubt);
+                    client.channels.get('340390312847343616').send("Smuggler smuggled "+ numSmuggle+ " , which is more than doubt "+ numDoubt+ ". Smuggling success! This might be error");
+                }else{
+                    client.channels.get('340390312847343616').send("Smuggler smuggled "+ numSmuggle+ ", which is less than or equal to doubt "+ numDoubt+ ". Smuggling failed!");
+                }
+                
+                
 	  			
                 if(numSmuggle==0){
                    calculateTransferDoubtSmuggleZero(msg);
@@ -189,7 +190,7 @@ client.on('message', msg => {
                 
                 else if(round > midRound){
                     clearRound();
-                    console.log(round+"&"+midRound);
+                    
                     if(round ==midRound+1){
                         i=0;
                     }
@@ -284,7 +285,7 @@ function checkDoubt(num){
 	}
 }
 function smugglingSuccess(numSmuggle, numDoubt){
-	if (numSmuggle> numDoubt){
+	if (+numSmuggle > +numDoubt){
 		return true;
 	}else{
 		return false;
