@@ -175,28 +175,24 @@ client.on('message', msg => {
                 
                 round++;
                 i++;
-                
-	  			if( round < midRound){
+                if( round <= midRound){
                     clearRound();
                     strSmuggler = teamRed.findAt(i).toString();
                     idSmuggler= strSmuggler.replace(/[<@!>]/g, '');
                     strOfficer = teamBlue.findAt(i).toString();
                     idOfficer= strOfficer.replace(/[<@!>]/g, '');
-                    
                     msgSmuggler(msg);
-                    
                 }else if(round>numRounds){
+                    
                          client.channels.get('340390312847343616').send("End Game");
                 }
                 
-                else if(round >= midRound){
+                else if(round > midRound){
                     clearRound();
-                    
-                    if(round==midRound+1){
+                    console.log(round+"&"+midRound);
+                    if(round ==midRound+1){
                         i=0;
                     }
-                    
-                    
                     teamSmuggler='Team Blue';
                     teamOfficer='Team Red';
                     
@@ -208,7 +204,6 @@ client.on('message', msg => {
                     msgSmuggler(msg);
 	  			
                 }
-               
                 
   			}else{
   				msg.channel.send("Please note that the number has to be between 1 and 100000000 (100m). Try l!doubt number again!");
@@ -226,7 +221,7 @@ client.on('message', msg => {
 });
 
 function explainRules(msg){
-    msg.channel.send('Welcome to a game of Liar Game-Contraband. \n__**How to play the game:**__\nThere are two teams (countries), team red and team blue. \nThe objective of the game is to smuggle money from the opposing country to the 3rd neutral country.   The smuggler will DM the host how much money he try to smuggle. However, the opposing country has an inspector customs officer that can either pass or doubt a certain amount of money as to whether a smuggling took place.   If he passes, then the amount smuggled goes to the opposing team. If he doubts, there are three cases: if the money is less than or equal to his doubt, it\'s a smuggling failure, and the customs officer confiscates the money for his team. If the smuggled money is greater than the doubted amount, it\'s a smuggling success and the customs officer will have to pay 1/2 of his doubted amount. This is called an “indemnity”. The last case is if the smuggler smuggled 0, and the inspector doubts- it\'s a smuggling success and this will also trigger an indemnity. Each person can only smuggle at most 100,000,000. Any money left in a countries ATM once the round is finished will be given to the opposing country.');
+    msg.channel.send('__**How to play the game:**__\nThere are two teams (countries), team red and team blue. \nThe objective of the game is to smuggle money from the opposing country to the 3rd neutral country.   The smuggler will DM the host how much money he try to smuggle. However, the opposing country has an inspector customs officer that can either pass or doubt a certain amount of money as to whether a smuggling took place.   If he passes, then the amount smuggled goes to the opposing team. If he doubts, there are three cases: if the money is less than or equal to his doubt, it\'s a smuggling failure, and the customs officer confiscates the money for his team. If the smuggled money is greater than the doubted amount, it\'s a smuggling success and the customs officer will have to pay 1/2 of his doubted amount. This is called an “indemnity”. The last case is if the smuggler smuggled 0, and the inspector doubts- it\'s a smuggling success and this will also trigger an indemnity. Each person can only smuggle at most 100,000,000. Any money left in a countries ATM once the round is finished will be given to the opposing country.');
 }
 
 function join(msg){
