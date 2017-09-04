@@ -111,8 +111,8 @@ client.on('message', msg => {
                     idOfficer= strOfficer.replace(/[<@!>]/g, '');
                     msgSmuggler(msg);
                 }else if(round>numRounds){
-                    
-                         client.channels.get('340390312847343616').send("End Game");
+                    results(msg);
+                         
                 }
                 
                 else if(round > midRound){
@@ -183,8 +183,8 @@ client.on('message', msg => {
                     idOfficer= strOfficer.replace(/[<@!>]/g, '');
                     msgSmuggler(msg);
                 }else if(round>numRounds){
-                    
-                         client.channels.get('340390312847343616').send("End Game");
+                    results(msg);
+                         
                 }
                 
                 else if(round > midRound){
@@ -477,6 +477,33 @@ function calculateTotalScore(msg){
     }
     client.channels.get('340390312847343616').send("Team Red: "+sumRed +" Team Blue: "+sumBlue);
 }
+function results(msg){
+    var index=0;
+    var sumRed=0;
+    console.log(moneySumRed.printList());
+    for (index = 0; index< moneySumRed.getSize(); index++){
+        sumRed= +sumRed + +moneySumRed.findAt(index).getData();
+    }
+    index=0;
+    var sumBlue=0;
+    for (index = 0; index< moneySumBlue.getSize(); index++){
+        sumBlue= +sumBlue + +moneySumBlue.findAt(index).getData();
+    }
+    
+    //display results
+    if (sumRed==sumBlue){
+        client.channels.get('340390312847343616').send("Result: Team Red and Team Blue tied!");
+        
+    }else if(sumRed> sumBlue){
+        client.channels.get('340390312847343616').send("Result: Team Red has won the game!");
+    }else{
+        client.channels.get('340390312847343616').send("Result: Team Blue has won the game!");
+    }
+    clearAll();
+    client.channels.get('340390312847343616').send("Press l!join and l!play to play the game again!");
+    
+}
+
 function clearAll(){
 teamRed.clear();
 teamBlue.clear();
